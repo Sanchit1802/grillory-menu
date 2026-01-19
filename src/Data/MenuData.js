@@ -10,7 +10,9 @@ import pasta from "../assets/pasta.jpg";
 import burger from "../assets/burger.jpg";
 import desert from "../assets/desert.jpg";
 import drinks from "../assets/drinks.jpg";
-
+import rolls from "../assets/rolls.webp";
+import kfcVeg from "../assets/kfcveg.jpg";
+import breads from "../assets/breads.webp";
 export const menuData = [
   {
     PageTitle: "Starters",
@@ -56,9 +58,28 @@ export const menuData = [
           { name: "Hot & Sour Soup", price: "₹99" },
         ],
       },
+      {
+        id: "rolls",
+        title: "Rolls",
+        image: rolls,
+        qtyNote: "Half: 2 pcs | Full: 4 pcs",
+        items: [
+          { name: "Veg Spring Roll", price: "₹59 / ₹99" },
+          { name: "Cheese Corn Roll", price: "₹89 / ₹179" },
+        ],
+      },
+      {
+        id: "kfc veg",
+        title: "KFC Veg",
+        image: kfcVeg,
+        items: [
+          { name: "KFC Roll", price: "₹129" },
+          { name: "KFC Paneer", price: "₹149" },
+          { name: "KFC Momos (8 pcs)", price: "₹149" },
+        ],
+      },
     ],
   },
-
   {
     PageTitle: "Chinese",
     sections: [
@@ -104,7 +125,7 @@ export const menuData = [
           { name: "Chilli Crispy Corn", price: "– / ₹129" },
           {
             name: "Paneer 65 (Special)",
-            price: "– / ₹199",
+            price: "– / ₹229",
             special: true,
           },
         ],
@@ -135,9 +156,18 @@ export const menuData = [
           { name: "Garlic Paneer Tikka", price: "₹139 / ₹229" },
           {
             name: "Grillory Special Paneer Tikka",
-            price: "– / ₹219",
+            price: "– / ₹249",
             special: true,
           },
+        ],
+      },
+      {
+        id: "breads",
+        title: "Breads",
+        image: breads,
+        items: [
+          { name: "Tandoori Roti", price: "₹10" },
+          { name: "Butter Roti", price: "₹15" },
         ],
       },
       {
@@ -146,7 +176,7 @@ export const menuData = [
         image: pasta,
         items: [
           { name: "Red Sauce Pasta", price: "₹79 / ₹139" },
-          { name: "White Sauce Pasta", price: "₹99 / ₹179" },
+          { name: "Alfredo Pasta (White)", price: "₹99 / ₹179" },
           { name: "Pink Sauce Pasta", price: "₹89 / ₹159" },
         ],
       },
@@ -160,29 +190,35 @@ export const menuData = [
           { name: "Grillory Jumbo Burger", price: "₹99" },
         ],
       },
-      {
-        id: "dessert",
-        title: "Dessert & Breads",
-        image: desert,
-        items: [
-          { name: "Rumali Roti", price: "₹10" },
-          { name: "Butter Rumali Roti", price: "₹15" },
-          { name: "Choco Lava Cake", price: "₹49" },
-        ],
-      },
+    ],
+  },
+  {
+    PageTitle: "Drinks & Desert",
+    sections: [
       {
         id: "drinks",
         title: "Drinks",
         image: drinks,
         items: [
-          { name: "Packaged Drinking Water", price: "On MRP" },
-          { name: "Thumbs Up", price: "On MRP" },
-          { name: "Limca", price: "On MRP" },
-          { name: "Sprite", price: "On MRP" },
-          { name: "Mirinda", price: "On MRP" },
-          { name: "Maaza", price: "On MRP" },
+          { name: "Mineral Water", price: "On MRP" },
+          { name: "Cold Drinks", price: "On MRP" },
           { name: "Red Bull", price: "On MRP" },
+          { name: "Hell", price: "On MRP" },
           { name: "Nescafe Cold Coffee (Can)", price: "On MRP" },
+          { name: "Shikanji", price: "On MRP" },
+          { name: "Red Bull", price: "On MRP" },
+          { name: "Mint Mojito", price: "₹99" },
+          { name: "Pineapple Mojito", price: "₹99" },
+          { name: "Blue Lagoon Mojito", price: "₹99" },
+        ],
+      },
+      {
+        id: "dessert",
+        title: "Desserts",
+        image: desert,
+        items: [
+          { name: "Choco Lava Cake", price: "₹49" },
+          { name: "Gulab Jamun", price: "₹29" },
         ],
       },
     ],
