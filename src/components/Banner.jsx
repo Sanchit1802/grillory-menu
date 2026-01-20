@@ -1,4 +1,4 @@
-import grilloryLogo from "../../public/grillory-logo.jpg";
+import grilloryLogo from "../../public/images/grillory-logo.jpg";
 export default function Banner() {
   return (
     <header className="banner">
