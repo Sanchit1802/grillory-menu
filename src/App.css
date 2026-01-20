@@ -220,7 +220,15 @@ body {
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
-
+/*==== SPECIAL ITEMS ====*/
+.special span:first-child {
+  color: #ffcc00;
+  font-weight: 600;
+}
+.special .price {
+  color: #ffcc00;
+  font-weight: 600;
+}
 
 /* ===== FOOTER ===== */
 footer {
