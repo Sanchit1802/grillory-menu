@@ -124,7 +124,7 @@ export const menuData = [
           { name: "Chilli Mushroom", price: "– / ₹139" },
           { name: "Chilli Crispy Corn", price: "– / ₹129" },
           {
-            name: "Paneer 65",
+            name: "Paneer 65 (Grillory Special)",
             price: "– / ₹229",
             special: true,
           },
