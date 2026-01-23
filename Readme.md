@@ -28,7 +28,9 @@ cd grillory-menu
 npm install  
 
 4. Run project  
-npm run dev  
+npm run dev
 
+if this doesn't work
+do (in terminal): ./node_modules/.bin/vite
 <!-- ## 🎯 Purpose -->
 
