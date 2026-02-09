@@ -11,6 +11,8 @@ export default function AdminPanel() {
   const [editedItems, setEditedItems] = useState({});
   const [editedSections, setEditedSections] = useState({});
   const [pages, setPages] = useState([]);
+  const [deleteId, setDeleteId] = useState(null);
+
 
   const [newSection, setNewSection] = useState({
     title: "",
@@ -157,10 +159,18 @@ export default function AdminPanel() {
   };
 
   const deleteSection = async (title) => {
-    await supabase.from("items").delete().eq("section", title);
-    await supabase.from("sections").delete().eq("title", title);
-    fetchData();
-  };
+  const ok = window.confirm(
+    `Are you sure you want to delete the section "${title}"?\nAll items inside it will also be deleted.`
+  );
+
+  if (!ok) return;
+
+  await supabase.from("items").delete().eq("section", title);
+  await supabase.from("sections").delete().eq("title", title);
+
+  fetchData();
+};
+
 
   /* ================= GROUP ================= */
 
@@ -194,7 +204,7 @@ export default function AdminPanel() {
           </option>
         ))}
       </select>
-
+        <br />
 
       <input
         placeholder="Section name"
@@ -203,6 +213,7 @@ export default function AdminPanel() {
           setNewSection({ ...newSection, title: e.target.value })
         }
       />
+      <br />
 
       <input
         placeholder="Qty Note"
@@ -212,6 +223,8 @@ export default function AdminPanel() {
         }
       />
 
+      <br />
+
       <input
         placeholder="First Item Name"
         value={newSection.firstItem}
@@ -219,6 +232,8 @@ export default function AdminPanel() {
           setNewSection({ ...newSection, firstItem: e.target.value })
         }
       />
+
+      <br />
 
       <input
         placeholder="First Item Price"
@@ -228,51 +243,62 @@ export default function AdminPanel() {
         }
       />
 
+      <br />
+
       <input type="file" ref={fileRef} accept="image/*" />
 
-      <button onClick={addSection}>➕ Add Section</button>
+      <button style={{marginTop: 10}} onClick={addSection}>➕ Add Section</button>
 
 
       {/* EDIT */}
       <hr />
-      <h2>Edit Menu</h2>
+      <h1>Edit Menu</h1>
 
       {sections.map(sec => (
-        <div key={sec.id} style={{ marginBottom: 20 }}>
-          <h3>{sec.title}</h3>
+        <div key={sec.id}>
+          <h1 style={{marginBottom:10}}>{sec.title}</h1>
+
+          <button onClick={() => deleteSection(sec.title)}>❌ Delete Section</button>
+          <br />
 
           <input
+            style={{marginBottom:20}}
+            placeholder="Qty note"
             defaultValue={sec.qty_note}
             onChange={e =>
               handleSectionChange(sec.id, "qty_note", e.target.value)
             }
           />
 
-          <button onClick={() => deleteSection(sec.title)}>❌ Delete Section</button>
 
           {grouped[sec.title]?.map(item => (
-            <div key={item.id} style={{ display: "flex", gap: 10 }}>
+            <div key={item.id} >
               <input
+                className="name-input"
                 defaultValue={item.name}
                 onChange={e =>
                   handleItemChange(item.id, "name", e.target.value)
                 }
               />
+              <br />
 
               <input
+                className="price-input"
                 defaultValue={item.price}
                 onChange={e =>
                   handleItemChange(item.id, "price", e.target.value)
                 }
               />
+              <br />
 
-              <button onClick={() => deleteItem(item.id)}>❌</button>
+              <button className="delete-button" onClick={() => deleteItem(item.id)}>Delete Item</button>
             </div>
           ))}
+          <hr />
+          <hr />
         </div>
       ))}
 
-      <hr />
 
       {/* SAVE BUTTON */}
       <button
@@ -284,7 +310,7 @@ export default function AdminPanel() {
           color: "white"
         }}
       >
-        💾 Update Changes
+        Update Changes
       </button>
     </div>
   );
