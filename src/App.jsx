@@ -23,7 +23,6 @@ export default function App() {
       timerRef.current = setTimeout(logoutUser, 10 * 30 * 1000);
     };
 
-    // activity events
     window.addEventListener("mousemove", resetTimer);
     window.addEventListener("keydown", resetTimer);
     window.addEventListener("click", resetTimer);
