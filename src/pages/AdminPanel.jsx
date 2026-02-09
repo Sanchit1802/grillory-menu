@@ -1,9 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function AdminPanel() {
 
   /* ================= STATES ================= */
+  
+  const navigate = useNavigate();
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   const [sections, setSections] = useState([]);
   const [items, setItems] = useState([]);
@@ -26,6 +32,7 @@ export default function AdminPanel() {
 
 
   /* ================= FETCH ================= */
+
 
   const fetchData = async () => {
     const { data: p } = await supabase.from("pages").select("*");
@@ -179,6 +186,23 @@ export default function AdminPanel() {
     if (!grouped[i.section]) grouped[i.section] = [];
     grouped[i.section].push(i);
   });
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      if (!data.session) {
+        navigate("/admin-login", { replace: true });
+        return;
+      }
+
+      setCheckingAuth(false);
+    };
+
+    checkLogin();
+  }, [navigate]);
+
+  if (checkingAuth) return null;
 
   /* ================= UI ================= */
 
