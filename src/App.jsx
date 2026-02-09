@@ -20,7 +20,7 @@ export default function App() {
         clearTimeout(timerRef.current);
       }
 
-      timerRef.current = setTimeout(logoutUser, 1 * 30 * 1000);
+      timerRef.current = setTimeout(logoutUser, 10 * 30 * 1000);
     };
 
     // activity events
