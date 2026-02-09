@@ -20,7 +20,7 @@ export default function AdminLogin() {
 
     // success
     sessionStorage.setItem("admin", "true");
-    navigate("/admin-panel-secret");
+    navigate("/admin-panel");
   };
 
   return (
