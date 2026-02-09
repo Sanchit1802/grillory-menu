@@ -1,24 +1,20 @@
-import Banner from "./components/Banner";
-import PageSection from "./components/PageSection";
-import { menuData } from "./Data/MenuData";
-import TopNav from "./components/TopNav";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import AdminLogin from "./pages/AdminLogin";
+import AdminPanel from "./pages/AdminPanel";
+
 export default function App() {
   return (
-    <>
-      <Banner />
+    <BrowserRouter>
+      <Routes>
+        {/* Main website */}
+        <Route path="/" element={<Home />} />
 
-      <div className="container">
-        <TopNav sections={menuData.flatMap(page => page.sections)} />
-        {menuData.map((page, index) => (
-          <PageSection key={index} {...page} />
-        ))}
-      </div>
-
-      <footer>
-        <h2>Contact Us</h2>
-        <p>Email: grilloryfood@gmail.com</p>
-        <p>Mobile: 7055850243, 8958052628</p>
-      </footer>
-    </>
+        {/* Hidden admin */}
+        <Route path="/admin-grillory-786" element={<AdminLogin />} />
+        <Route path="/admin-panel-secret" element={<AdminPanel />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
