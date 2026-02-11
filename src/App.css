@@ -276,6 +276,7 @@ input {
   font-weight: 500;
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.6);
 }
+
 input::placeholder {
   color: #ffffff;
 }
@@ -284,6 +285,11 @@ input:focus {
   box-shadow: 0 0 6px var(--accent);
 }
 
+/* ===== CHECKBOX ===== */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
 
 /* ===== BUTTONS ===== */
 button {
@@ -363,6 +369,29 @@ footer p {
   background: linear-gradient(135deg, #ffb347, #ff9800);
   color: #111;
 }
+
+
+/* ===== ADD ITEM CONTAINER ===== */ 
+.item-container {
+  /* display: flex; */
+  width: min(100%, 600px  );
+  margin-bottom: 10px;
+  align-items: center;
+  padding:10px;
+  border: 1px solid rgba(255, 152, 0, 0.4);
+  border-radius: 8px;
+  background: transparent;
+  color:#f5f5f5;
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.6);
+}
+/* keep inputs compact inside the add-item container */
+
+.item-container .check-box {
+  transform: scale(1.5);
+  width: auto;
+  margin-inline: 10px;
+}
+
 
 /* ===== MOBILE FIX ===== */
 @media (max-width: 360px) {

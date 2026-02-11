@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
 
 
 
@@ -18,7 +19,11 @@ export default function AdminPanel() {
   const [editedSections, setEditedSections] = useState({});
   const [pages, setPages] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
-
+  const [newItem, setNewItem] = useState({
+    name: "",
+    price: "",
+    special: false,
+  });
 
   const [newSection, setNewSection] = useState({
     title: "",
@@ -178,6 +183,34 @@ export default function AdminPanel() {
   fetchData();
 };
 
+  const addItem = async (sectionTitle) => {
+
+    if(!newItem.name || !newItem.price) {
+      alert("Fill item name and price");
+      return;
+    }
+    const { error } = await supabase.from("items").insert({
+      section: sectionTitle,
+      name: newItem.name,
+      price: newItem.price,
+      special: newItem.special
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setNewItem({
+      name: "",
+      price: "",
+      special: false,
+      section: ""
+    });
+
+    fetchData();
+  };
+
 
   /* ================= GROUP ================= */
 
@@ -207,7 +240,8 @@ export default function AdminPanel() {
   /* ================= UI ================= */
 
   return (
-    <div style={{ padding: 40 }}>
+    <>
+    <div style={{padding: 40}}>
       <h1>🔥 Grillory Admin</h1>
 
       {/* ADD SECTION */}
@@ -296,7 +330,7 @@ export default function AdminPanel() {
 
 
           {grouped[sec.title]?.map(item => (
-            <div key={item.id} >
+            <div className="item-container" key={item.id} >
               <input
                 className="name-input"
                 defaultValue={item.name}
@@ -314,10 +348,50 @@ export default function AdminPanel() {
                 }
               />
               <br />
+              <input
+                className="check-box"
+                type="checkbox"
+                defaultChecked={item.special}
+                onChange={e =>
+                  handleItemChange(item.id, "special", e.target.checked)
+                }
+              /> Special
+              <br />
 
               <button className="delete-button" onClick={() => deleteItem(item.id)}>Delete Item</button>
             </div>
           ))}
+
+          <div className="item-container" style={{background: "#d67d0043"}} > 
+            <input
+              className="name-input"
+              placeholder="New item name"
+              value={newItem.name}
+              onChange={e =>
+                setNewItem(prev => ({ ...prev, name: e.target.value }))
+              }
+            />
+            <br />
+            <input
+                className="price-input"
+              placeholder="New item price"
+              value={newItem.price}
+              onChange={e =>
+                setNewItem(prev => ({ ...prev, price: e.target.value }))
+              }
+            />
+            <br />
+            <input
+            className="check-box"
+              type="checkbox"
+              checked={newItem.special}
+              onChange={e =>
+                setNewItem(prev => ({ ...prev, special: e.target.checked }))
+              }
+            /> Special
+            <br />
+          <button style={{backgroundColor:"green", color: "white",marginTop: 10}} onClick={() => addItem(sec.title)}>+ Add Item</button>
+          </div>
           <hr />
           <hr />
         </div>
@@ -328,14 +402,19 @@ export default function AdminPanel() {
       <button
         onClick={saveChanges}
         style={{
-          padding: 10,
-          fontSize: 16,
           background: "green",
-          color: "white"
+          color: "white",
+          marginBottom: 50,
         }}
       >
         Update Changes
       </button>
-    </div>
+        </div>
+      <footer>
+        <h2>Contact Us</h2>
+        <p>Email: grilloryfood@gmail.com</p>
+        <p>Mobile: 7055850243, 8958052628</p>
+      </footer>
+    </>
   );
 }
