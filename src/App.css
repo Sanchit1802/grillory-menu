@@ -386,7 +386,7 @@ footer p {
 }
 /* keep inputs compact inside the add-item container */
 
-.item-container .check-box {
+.check-box {
   transform: scale(1.5);
   width: auto;
   margin-inline: 10px;

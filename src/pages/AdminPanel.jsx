@@ -19,18 +19,16 @@ export default function AdminPanel() {
   const [editedSections, setEditedSections] = useState({});
   const [pages, setPages] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
-  const [newItem, setNewItem] = useState({
-    name: "",
-    price: "",
-    special: false,
-  });
+  // per-section new item inputs keyed by section id
+  const [newItem, setNewItem] = useState({});
 
   const [newSection, setNewSection] = useState({
     title: "",
     qtyNote: "",
     page_id: "",
     firstItem: "",
-    firstPrice: ""
+    firstPrice: "",
+    special: false
   });
 
   const fileRef = useRef();
@@ -107,7 +105,8 @@ export default function AdminPanel() {
     await supabase.from("items").insert({
       section: newSection.title,
       name: newSection.firstItem,
-      price: newSection.firstPrice
+      price: newSection.firstPrice,
+      special: newSection.special
     });
 
     // reset
@@ -177,23 +176,34 @@ export default function AdminPanel() {
 
   if (!ok) return;
 
+  // Find the section to get the image URL
+  const section = sections.find(s => s.title === title);
+  
+  // Delete image from storage if it exists
+  if (section && section.image) {
+    const imageName = section.image.split('/').pop(); // Extract filename from URL
+    await supabase.storage.from("menu-images").remove([imageName]);
+  }
+
   await supabase.from("items").delete().eq("section", title);
   await supabase.from("sections").delete().eq("title", title);
 
   fetchData();
 };
 
-  const addItem = async (sectionTitle) => {
+  const addItem = async (sectionId, sectionTitle) => {
+    const sectionNewItem = newItem[sectionId] || {};
 
-    if(!newItem.name || !newItem.price) {
+    if (!sectionNewItem.name || !sectionNewItem.price) {
       alert("Fill item name and price");
       return;
     }
+
     const { error } = await supabase.from("items").insert({
       section: sectionTitle,
-      name: newItem.name,
-      price: newItem.price,
-      special: newItem.special
+      name: sectionNewItem.name,
+      price: sectionNewItem.price,
+      special: sectionNewItem.special || false
     });
 
     if (error) {
@@ -201,12 +211,8 @@ export default function AdminPanel() {
       return;
     }
 
-    setNewItem({
-      name: "",
-      price: "",
-      special: false,
-      section: ""
-    });
+    // clear only this section's inputs
+    setNewItem(prev => ({ ...prev, [sectionId]: { name: "", price: "", special: false } }));
 
     fetchData();
   };
@@ -246,7 +252,7 @@ export default function AdminPanel() {
 
       {/* ADD SECTION */}
       <hr />
-      <h2>Add Section (with first item)</h2>
+      <h2>Add Section</h2>
 
       <select
         value={newSection.page_id}
@@ -301,6 +307,14 @@ export default function AdminPanel() {
         }
       />
 
+      <br />
+      <input type="checkbox" 
+      className="check-box"
+      checked={newSection.special}
+      onChange={e =>
+        setNewSection({...newSection,special: e.target.checked})
+      }
+      /> Special
       <br />
 
       <input type="file" ref={fileRef} accept="image/*" />
@@ -366,31 +380,31 @@ export default function AdminPanel() {
             <input
               className="name-input"
               placeholder="New item name"
-              value={newItem.name}
+              value={newItem[sec.id]?.name || ""}
               onChange={e =>
-                setNewItem(prev => ({ ...prev, name: e.target.value }))
+                setNewItem(prev => ({ ...prev, [sec.id]: { ...prev[sec.id], name: e.target.value } }))
               }
             />
             <br />
             <input
                 className="price-input"
               placeholder="New item price"
-              value={newItem.price}
+              value={newItem[sec.id]?.price || ""}
               onChange={e =>
-                setNewItem(prev => ({ ...prev, price: e.target.value }))
+                setNewItem(prev => ({ ...prev, [sec.id]: { ...prev[sec.id], price: e.target.value } }))
               }
             />
             <br />
             <input
             className="check-box"
               type="checkbox"
-              checked={newItem.special}
+              checked={!!newItem[sec.id]?.special}
               onChange={e =>
-                setNewItem(prev => ({ ...prev, special: e.target.checked }))
+                setNewItem(prev => ({ ...prev, [sec.id]: { ...prev[sec.id], special: e.target.checked } }))
               }
             /> Special
             <br />
-          <button style={{backgroundColor:"green", color: "white",marginTop: 10}} onClick={() => addItem(sec.title)}>+ Add Item</button>
+          <button style={{backgroundColor:"green", color: "white",marginTop: 10}} onClick={() => addItem(sec.id, sec.title)}>+ Add Item</button>
           </div>
           <hr />
           <hr />

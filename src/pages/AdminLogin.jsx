@@ -38,6 +38,7 @@ export default function AdminLogin() {
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Enter') {handleLogin(); } }}
       />
 
       <button onClick={handleLogin}>Enter</button>
