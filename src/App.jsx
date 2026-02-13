@@ -20,7 +20,7 @@ export default function App() {
         clearTimeout(timerRef.current);
       }
 
-      timerRef.current = setTimeout(logoutUser, 10 * 30 * 1000);
+      timerRef.current = setTimeout(logoutUser, 30 * 60 * 1000);
     };
 
     window.addEventListener("mousemove", resetTimer);
