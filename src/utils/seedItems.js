@@ -6,12 +6,13 @@ export const seedItems = async () => {
 
   menuData.forEach(page => {
     page.sections.forEach(section => {
-      section.items.forEach(item => {
+      section.items.forEach((item, iIndex) => {
         rows.push({
           section: section.title,
           name: item.name,
           price: item.price,
-          special: item.special || false
+          special: item.special || false,
+          sort_order: iIndex + 1
         });
       });
     });

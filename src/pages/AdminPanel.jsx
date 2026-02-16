@@ -38,9 +38,9 @@ export default function AdminPanel() {
 
 
   const fetchData = async () => {
-    const { data: p } = await supabase.from("pages").select("*");
-    const { data: s } = await supabase.from("sections").select("*");
-    const { data: i } = await supabase.from("items").select("*");
+    const { data: p } = await supabase.from("pages").select("*").order("sort_order");
+    const { data: s } = await supabase.from("sections").select("*").order("sort_order");
+    const { data: i } = await supabase.from("items").select("*").order("sort_order");
 
     setPages(p || []);
     setSections(s || []);
@@ -90,11 +90,17 @@ export default function AdminPanel() {
       imageUrl = await uploadImage(file);
     }
 
+    // get next sort_order for this page
+    const maxSecOrder = sections
+      .filter(s => s.page_id === newSection.page_id)
+      .reduce((max, s) => Math.max(max, s.sort_order || 0), 0);
+
     const { error: sectionError } = await supabase.from("sections").insert({
       title: newSection.title,
       qty_note: newSection.qtyNote,
       image: imageUrl,
-      page_id: newSection.page_id
+      page_id: newSection.page_id,
+      sort_order: maxSecOrder + 1
     });
 
     if (sectionError) {
@@ -106,7 +112,8 @@ export default function AdminPanel() {
       section: newSection.title,
       name: newSection.firstItem,
       price: newSection.firstPrice,
-      special: newSection.special
+      special: newSection.special,
+      sort_order: 1
     });
 
     // reset
@@ -199,11 +206,17 @@ export default function AdminPanel() {
       return;
     }
 
+    // get next sort_order for this section
+    const maxItemOrder = items
+      .filter(i => i.section === sectionTitle)
+      .reduce((max, i) => Math.max(max, i.sort_order || 0), 0);
+
     const { error } = await supabase.from("items").insert({
       section: sectionTitle,
       name: sectionNewItem.name,
       price: sectionNewItem.price,
-      special: sectionNewItem.special || false
+      special: sectionNewItem.special || false,
+      sort_order: maxItemOrder + 1
     });
 
     if (error) {
@@ -319,7 +332,6 @@ export default function AdminPanel() {
         <button style={{ marginTop: 10 }} onClick={addSection}>➕ Add Section</button>
 
 
-        {/* EDIT */}
         <hr />
         <TopNav sections={sections} />
         <br />
