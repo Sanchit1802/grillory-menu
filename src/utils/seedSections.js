@@ -10,12 +10,12 @@ export const seedSections = async () => {
   const rows = [];
 
   menuData.forEach(page => {
-    page.sections.forEach(section => {
+    page.sections.forEach((section, sIndex) => {
       rows.push({
         title: section.title,
-        image: section.image,
-        qty_note: section.qtyNote || null, // ✅ add this
-        page_id: pageMap[page.PageTitle]
+        qty_note: section.qtyNote || null,
+        page_id: pageMap[page.PageTitle],
+        sort_order: sIndex + 1
       });
     });
   });

@@ -13,9 +13,9 @@ export default function Home() {
     const fetchMenu = async () => {
 
       // ✅ fetch ALL tables
-      const { data: pages } = await supabase.from("pages").select("*");
-      const { data: sections } = await supabase.from("sections").select("*");
-      const { data: items } = await supabase.from("items").select("*");
+      const { data: pages } = await supabase.from("pages").select("*").order("sort_order");
+      const { data: sections } = await supabase.from("sections").select("*").order("sort_order");
+      const { data: items } = await supabase.from("items").select("*").order("sort_order");
 
       if (!pages || !sections || !items) return;
 
