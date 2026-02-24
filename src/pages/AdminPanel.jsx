@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
 import TopNav from "../components/TopNav";
+import "./AdminPanel.css";
 
 
 export default function AdminPanel() {

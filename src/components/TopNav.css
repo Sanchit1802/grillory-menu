@@ -1,0 +1,42 @@
+/* ===== TOP NAVIGATION ===== */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  backdrop-filter: blur(6px);
+}
+
+.top-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.top-nav button {
+  flex-shrink: 0;
+  padding: 6px 14px;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 152, 0, 0.4);
+
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffd180;
+
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.top-nav button:hover {
+  background: linear-gradient(135deg, #ffb347, #ff9800);
+  color: #111;
+}

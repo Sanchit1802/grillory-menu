@@ -1,0 +1,37 @@
+/* ===== ITEMS ===== */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed #333;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.item span:first-child {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.35px;
+  color: #f3f3f3;
+}
+
+.price {
+  font-weight: 600;
+  color: #ffd166;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* ===== SPECIAL ITEMS ===== */
+.special span:first-child {
+  color: #ffcc00;
+  font-weight: 600;
+}
+
+.special .price {
+  color: #ffcc00;
+  font-weight: 600;
+}

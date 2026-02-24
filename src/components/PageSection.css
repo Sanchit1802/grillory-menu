@@ -1,0 +1,52 @@
+/* ===== PAGE ===== */
+.page {
+  margin-bottom: 48px;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title {
+  position: relative;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  margin: 32px 0 26px;
+  padding: 10px 22px;
+  color: #1a0e05;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #ffb347, #ff9800);
+  border-radius: 999px;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+}
+
+.page-title::before,
+.page-title::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 152, 0, 0.6);
+}
+
+.page-title::before {
+  right: 100%;
+  margin-right: 12px;
+}
+
+.page-title::after {
+  left: 100%;
+  margin-left: 12px;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 360px) {
+  .page-title {
+    font-size: 22px;
+  }
+}

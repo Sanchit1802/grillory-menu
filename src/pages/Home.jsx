@@ -66,11 +66,13 @@ export default function Home() {
         ))}
       </div>
 
-      <footer>
-        <h2>Contact Us</h2>
-        <p>Email: grilloryfood@gmail.com</p>
-        <p>Mobile: 7055850243, 8958052628</p>
-      </footer>
+      {menuData.length > 0 && (
+        <footer>
+          <h2>Contact Us</h2>
+          <p>Email: grilloryfood@gmail.com</p>
+          <p>Mobile: 7055850243, 8958052628</p>
+        </footer>
+      )}
     </>
   );
 }
