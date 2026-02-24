@@ -1,3 +1,5 @@
+import "./TopNav.css";
+
 export default function TopNav({ sections }) {
   const scrollToSection = (id) => {
     const el = document.getElementById(id);

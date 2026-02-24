@@ -1,4 +1,5 @@
 import MenuItem from "./MenuItem";
+import "./MenuSection.css";
 
 export default function MenuSection({ id, title, image, qtyNote, items }) {
   return (

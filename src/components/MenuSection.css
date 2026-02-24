@@ -1,0 +1,55 @@
+/* ===== SECTIONS ===== */
+.section {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.6)),
+    linear-gradient(180deg, #1f1f1f, #111);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 22px;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.section h2 {
+  margin: 0 0 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 0.8px;
+  border-left: 4px solid var(--accent);
+  padding-left: 12px;
+}
+
+/* ===== QTY BADGE ===== */
+.qty-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #1a0e05;
+  background: linear-gradient(135deg, #ffb347, #ff9800);
+  border-radius: 999px;
+  letter-spacing: 0.4px;
+}
+
+/* ===== SECTION IMAGES ===== */
+.section img {
+  width: 100%;
+  height: clamp(120px, 30vw, 160px);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #111;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 360px) {
+  .section h2 {
+    font-size: 20px;
+  }
+}

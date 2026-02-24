@@ -1,4 +1,5 @@
 import MenuSection from "./MenuSection";
+import "./PageSection.css";
 
 export default function PageSection({ PageTitle, sections }) {
   return (

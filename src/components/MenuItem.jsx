@@ -1,3 +1,5 @@
+import "./MenuItem.css";
+
 export default function MenuItem({ name, price, special }) {
   return (
     <div className={`item ${special == true ? "special" : ""}`}>
